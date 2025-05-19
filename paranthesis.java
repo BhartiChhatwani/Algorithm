@@ -1,42 +1,26 @@
+import java.util.Stack;
+// 20. Valid Parentheses
+
 class Solution {
     public boolean isValid(String s) {
-
-        Stack<Character> temp = new Stack();
-        boolean result = false;
-
-        if ( s == null || s.length() == 0) {
-            return true;
-        }
-
-        for (int i =0 ; i < s.length(); i ++) {
-            System.out.print("s.charAt(i)  " +s.charAt(i) );
-            if (s.charAt(i) == '(' || s.charAt(i) == '[' || s.charAt(i) == '{') {
-               temp.push(s.charAt(i));    
+        // Stack to store opening brackets
+        Stack<Character> stack = new Stack<>();
+        // Loop through the characters in the string
+        for (char c : s.toCharArray()) {
+            // Push opening brackets onto the stack
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            } else {
+                // If the stack is empty or doesn't match, return false
+                if (stack.isEmpty() || 
+                   (c == ')' && stack.pop() != '(') || 
+                   (c == '}' && stack.pop() != '{') || 
+                   (c == ']' && stack.pop() != '[')) {
+                    return false;
+                }
             }
-
-            if (s.charAt(i) == ')' || s.charAt(i) == ']' || s.charAt(i) == '}') {
-               if(!temp.empty()) {
-                char pop = temp.pop().charValue();   
-
-                System.out.print("pop " +pop);
-                if (s.charAt(i) == ')' && pop == '(' || 
-                s.charAt(i) == ']' && pop == '['  ||
-                s.charAt(i) == '}' && pop == '{' ) {
-                result = true;
-                }
-                else {
-               return false;
-                }
-               }
-                else 
-                return false;
-            }            
         }
-        if(!temp.empty()) {
-            return false;
-        } 
-        else {
-        return result;        
-        }
+        // Return true if the stack is empty
+        return stack.isEmpty();
     }
 }
