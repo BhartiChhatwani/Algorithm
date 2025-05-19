@@ -1,3 +1,5 @@
+// Logest SubString Sliding Window approach
+
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         HashMap<Character, Integer> prevSeen = new HashMap<>();
